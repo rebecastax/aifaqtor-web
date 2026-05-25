@@ -1,9 +1,7 @@
+import { redirect } from "next/navigation";
+
+// Homepage bifurcadora — se construye en Task 8
+// Por ahora redirige a manufactura para que el build funcione
 export default function Home() {
-  return (
-    <main className="flex min-h-screen items-center justify-center">
-      <p className="text-muted-foreground">
-        Clone target not yet built. Run <code className="font-mono text-foreground">/clone-website</code> to start.
-      </p>
-    </main>
-  );
+  redirect("/manufactura");
 }
