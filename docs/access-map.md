@@ -13,7 +13,7 @@ https://docs.google.com/spreadsheets/d/1MSPe60HioVQVh1kseQ22YFWD5k3FAlekKPDUHHQX
 https://script.google.com/u/0/home/projects/1fLN4MjGVrssxF2Yjhh5VOSmVnCMmlg0qvAR24AKEUk0xD149zAXvb5Gd/edit
 
 ## Apps Script Exec URL
-https://script.google.com/macros/s/AKfycbwQ1HCbATaaD04q03HBS13o86rkZERDG8GhOjuT4lS-42y1WmAnCNVMtLn0kA73BQ4lbg/exec
+https://script.google.com/macros/s/AKfycbwRfXLwijNBsV-tP42MqzjCZAJZgLjkH2EcL2ZliJTapMhQ2rSnQnxSyh7x7leheRp78Q/exec
 
 ## Contacto
 - WhatsApp: +52 81 8011 3554
