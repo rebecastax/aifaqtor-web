@@ -5,8 +5,8 @@ export default function HeroSection() {
     <section
       className="relative flex items-center"
       style={{
-        minHeight: "100vh",
-        paddingTop: "88px",
+        minHeight: "calc(100vh - 72px)",
+        paddingTop: "40px",
         background: "#060606",
         overflow: "hidden",
       }}

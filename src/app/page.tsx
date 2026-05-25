@@ -1,7 +1,18 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import HeroBifurcadora from "@/components/home/HeroBifurcadora";
+import QuienesSomos from "@/components/home/QuienesSomos";
 
-// Homepage bifurcadora — se construye en Task 8
-// Por ahora redirige a manufactura para que el build funcione
-export default function Home() {
-  redirect("/manufactura");
+export const metadata: Metadata = {
+  title: "AiFaqtor — IA y Tecnología para Industria y Negocios",
+  description:
+    "Soluciones de inteligencia artificial para maquiladoras en México y servicios digitales para pequeños negocios latinos en San Diego.",
+};
+
+export default function HomePage() {
+  return (
+    <>
+      <HeroBifurcadora />
+      <QuienesSomos />
+    </>
+  );
 }
