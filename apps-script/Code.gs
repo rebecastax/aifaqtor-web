@@ -4,6 +4,10 @@ const SHEET_ID = '1MSPe60HioVQVh1kseQ22YFWD5k3FAlekKPDUHHQXnBY';
 const ss = SpreadsheetApp.openById(SHEET_ID);
 
 function doGet(e) {
+  // Guard: si se ejecuta desde el editor sin request HTTP
+  if (!e || !e.parameter) {
+    return jsonResponse({ error: 'Ejecuta via URL, no desde el editor. Ejemplo: ?action=config' });
+  }
   const action = e.parameter.action;
   try {
     let data;
