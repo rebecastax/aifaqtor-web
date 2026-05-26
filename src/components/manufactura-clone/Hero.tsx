@@ -62,20 +62,20 @@ export default function Hero() {
           <AnimateIn delay={0.15} y={40}>
             <div className="relative rounded-3xl overflow-hidden bg-white/[0.04] border border-white/10">
               <Image
-                src="/images/hero.jpg"
+                src="/images/aifaqtor/hero-image.jpg"
                 alt="Operación en planta"
-                width={1200}
-                height={1400}
+                width={1920}
+                height={1080}
                 priority
                 className="w-full h-auto"
               />
-              <Image
-                src="/images/hero-overlay.png"
-                alt=""
-                width={1200}
-                height={1400}
-                priority
-                className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(6,6,6,0) 50%, rgba(6,6,6,0.65) 100%)",
+                }}
               />
             </div>
           </AnimateIn>

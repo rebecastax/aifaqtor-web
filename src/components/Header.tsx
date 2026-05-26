@@ -39,7 +39,6 @@ export default function Header() {
   }, []);
 
   const isNegocios = pathname.startsWith("/negocios-latinos");
-  const accentColor = isNegocios ? "#16A34A" : "#0076C4";
   const accentGradient = isNegocios
     ? "#16A34A"
     : "linear-gradient(90deg, #0076C4 0%, #6B3890 100%)";
