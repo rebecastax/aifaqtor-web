@@ -5,6 +5,105 @@
 //   3. Click en ▶ Ejecutar
 //   4. Autorizar permisos cuando lo pida
 //   5. Verificar el Sheet — deben aparecer 6 pestañas pobladas
+//
+// Para ACTUALIZAR solo los textos de Manufactura sin tocar Leads ni el resto,
+// ejecutar `updateManufacturaContent` (no destruye otras pestañas).
+
+// SHEET_ID ya declarado en Code.gs
+
+// ─── Contenido verbatim Manufactura (clon aifaqtor.com homepage) ───────────
+// Si actualizas estos arrays, ejecuta `updateManufacturaContent` para reflejar
+// los cambios en el Sheet sin reescribir Leads u otras pestañas.
+
+const MANUFACTURA_SERVICIOS_ROWS = [
+  // Visibilidad & Datos
+  [1, 'Control de Paros por Línea (Tiempo Real)',
+    'Visibilidad en vivo de paros por línea y turno para reaccionar antes de que el problema escale.',
+    'Tablero piloto en una línea en 4 semanas',
+    'Paros visibles · MTTR ↓ · OEE',
+    'Visibilidad', true],
+  [2, 'Control Diario del Cumplimiento del Plan de Producción',
+    'Comparativo plan vs. real por turno con causas de desviación para gobernar la operación día a día.',
+    'Primer reporte diario en 3 semanas',
+    'Cumplimiento de plan · Desviaciones por causa',
+    'Visibilidad', true],
+  [3, 'Trazabilidad Operativa para Contención de Calidad',
+    'Trazabilidad de producto y proceso para contener calidad en minutos en lugar de días.',
+    'Pilotear contención en una línea en 4 semanas',
+    'Tiempo de contención · Lotes afectados · Reclamos',
+    'Visibilidad', true],
+
+  // Escala Operativa
+  [4, 'Análisis de Variabilidad Operativa por Turno y Línea',
+    'Detección de variabilidad entre turnos, líneas y operadores para estandarizar y replicar las mejores prácticas.',
+    'Primer análisis en 3 semanas',
+    'Variabilidad entre turnos · Gap vs. best shift',
+    'Escala', true],
+  [5, 'Rutinas Operativas por Turno (Digitales)',
+    'Digitalización de rutinas y checklists por turno para asegurar ejecución consistente sin depender de personas clave.',
+    'Primera rutina digital en 2 semanas',
+    'Adherencia a rutina · Cumplimiento de checks',
+    'Escala', true],
+  [6, 'Control y Registro Digital de Eventos Operativos',
+    'Captura digital de eventos relevantes (paros, scrap, intervenciones) con causa y responsable, lista para analizar.',
+    'Primer flujo de captura en 2 semanas',
+    'Eventos registrados · % captura digital · Tiempo de registro',
+    'Escala', true],
+
+  // Rentabilidad
+  [7, 'Identificación y Priorización de Pérdidas Operativas',
+    'Mapeo y costeo de pérdidas (scrap, paros, capacidad desperdiciada) para enfocar inversión donde más duele.',
+    'Mapa de pérdidas costeado en 3 semanas',
+    '$ pérdidas identificadas · Pérdidas evitables · ROI por iniciativa',
+    'Rentabilidad', true],
+  [8, 'Reducción Estructurada de Scrap y Reproceso',
+    'Iniciativas focalizadas para reducir scrap y reproceso atacando causas raíz con datos en lugar de intuición.',
+    'Primera ola de reducción en 6 semanas',
+    '% scrap · % reproceso · Costo por unidad',
+    'Rentabilidad', true],
+  [9, 'Recuperación de Capacidad Desperdiciada',
+    'Recuperación de capacidad oculta por microparos, cambios y desbalanceos para producir más sin invertir en activos.',
+    'Diagnóstico de capacidad en 4 semanas',
+    'OEE · Capacidad recuperada (unidades/turno)',
+    'Rentabilidad', true],
+];
+
+const MANUFACTURA_FAQ_ROWS = [
+  ['¿Necesitamos tener un equipo técnico o de IA para trabajar con AiFaqtor?',
+    'No. Nuestro trabajo parte del entendimiento del proceso operativo y del contexto del negocio, no de la madurez tecnológica del cliente. Nos adaptamos al nivel actual de la organización y trabajamos de forma coordinada con operaciones, ingeniería y TI cuando aplica.',
+    1, true],
+  ['¿AiFaqtor reemplaza sistemas o se integra a los existentes?',
+    'Nos integramos a la realidad tecnológica de cada planta. Nuestras soluciones están pensadas para convivir con sistemas existentes (ERP, MES, hojas operativas, herramientas internas), evitando reemplazos innecesarios.',
+    2, true],
+  ['¿Qué tan seguro es el manejo de nuestra información?',
+    'Tratamos los datos operativos con estrictos criterios de confidencialidad y gobierno. Trabajamos bajo acuerdos claros y diseñamos cada solución considerando los lineamientos de seguridad, acceso y cumplimiento definidos por la organización.',
+    3, true],
+  ['¿Cómo inicia normalmente un proyecto con AiFaqtor?',
+    'Iniciamos con un diagnóstico operativo estructurado, que permite entender prioridades, dimensionar impacto y definir una ruta clara antes de cualquier implementación.',
+    4, true],
+];
+
+/**
+ * Actualiza SOLO las pestañas Manufactura_Servicios y Manufactura_FAQ
+ * con el contenido verbatim de aifaqtor.com (sin tocar Leads ni otras).
+ * Ejecutar desde el editor o vía `clasp run updateManufacturaContent`.
+ */
+function updateManufacturaContent() {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+
+  setupTab(ss, 'Manufactura_Servicios',
+    ['id', 'nombre', 'descripcion', 'quickwin', 'indicadores', 'grupo', 'activo'],
+    MANUFACTURA_SERVICIOS_ROWS
+  );
+
+  setupTab(ss, 'Manufactura_FAQ',
+    ['pregunta', 'respuesta', 'orden', 'activo'],
+    MANUFACTURA_FAQ_ROWS
+  );
+
+  SpreadsheetApp.flush();
+  Logger.log('✓ Manufactura_Servicios (' + MANUFACTURA_SERVICIOS_ROWS.length + ') y Manufactura_FAQ (' + MANUFACTURA_FAQ_ROWS.length + ') actualizadas con contenido verbatim');
+}
 
 function setupSheets() {
   const ss = SpreadsheetApp.openById('1MSPe60HioVQVh1kseQ22YFWD5k3FAlekKPDUHHQXnBY');
@@ -21,29 +120,13 @@ function setupSheets() {
   // 2. MANUFACTURA_SERVICIOS
   setupTab(ss, 'Manufactura_Servicios',
     ['id', 'nombre', 'descripcion', 'quickwin', 'indicadores', 'grupo', 'activo'],
-    [
-      [1, 'Manufacturing Command Room', 'Control visual de paros, cumplimiento y trazabilidad en planta', 'Dashboard en vivo en 4 semanas', 'Paros reducidos 20%, OEE visible', 'Visibilidad', true],
-      [2, 'Data Hub 360°', 'Integración de datos de producción, calidad y logística en una sola fuente', 'Primer pipeline en 6 semanas', 'Datos unificados en tiempo real', 'Visibilidad', true],
-      [3, 'Diagnóstico Acelerado IA', 'Evaluación de madurez operativa y roadmap priorizado con ROI', 'Diagnóstico en 2 semanas', 'Roadmap defendible con ROI por iniciativa', 'Visibilidad', true],
-      [4, 'MES Ligero', 'Digitalización de órdenes de producción y trazabilidad', 'Primera orden digital en 3 semanas', 'Trazabilidad 100% en línea', 'Escala', true],
-      [5, 'Control de Piso Digital', 'Estandarización de procesos críticos que hoy viven en papel o Excel', 'Proceso piloto en 2 semanas', 'Variabilidad reducida 30%', 'Escala', true],
-      [6, 'Agente IA de Operaciones', 'Copiloto IA para supervisores con alertas y recomendaciones en tiempo real', 'Primeras alertas en 2 semanas', 'Decisiones 40% más rápidas', 'Escala', true],
-      [7, 'Automatización RPA', 'Eliminación de tareas manuales repetitivas y captura de datos', 'Primera tarea automatizada en 2 semanas', '20hrs/semana recuperadas por proceso', 'Escala', true],
-      [8, 'Machine Vision', 'Detección automática de defectos en línea de producción', 'Cámara piloto en 4 semanas', 'Scrap reducido 25%', 'Rentabilidad', true],
-      [9, 'Predicción de Mantenimiento', 'Anticipar fallas en equipos antes de que paren la producción', 'Modelo piloto en 3 semanas', 'Paros no programados -30%', 'Rentabilidad', true],
-      [10, 'Optimización de Inventarios', 'Reducción de inventario en exceso con modelos de predicción', 'Modelo piloto en 4 semanas', 'Capital liberado 15%', 'Rentabilidad', true],
-    ]
+    MANUFACTURA_SERVICIOS_ROWS
   );
 
   // 3. MANUFACTURA_FAQ
   setupTab(ss, 'Manufactura_FAQ',
     ['pregunta', 'respuesta', 'orden', 'activo'],
-    [
-      ['¿Necesitamos tener un equipo técnico o de IA para trabajar con AiFaqtor?', 'No. Nuestro trabajo parte del entendimiento del proceso operativo y del contexto del negocio. Nos adaptamos al nivel actual de la organización y trabajamos de forma coordinada con operaciones, ingeniería y TI cuando aplica.', 1, true],
-      ['¿AiFaqtor reemplaza sistemas o se integra a los existentes?', 'Nos integramos a los sistemas existentes. No reemplazamos — complementamos y conectamos lo que ya tienen para agregar visibilidad e inteligencia encima.', 2, true],
-      ['¿Qué tan seguro es el manejo de nuestra información?', 'Toda la información se maneja con acuerdos de confidencialidad (NDA) y bajo estándares de seguridad de datos industriales. Los datos de planta nunca salen de infraestructura controlada.', 3, true],
-      ['¿Cómo inicia normalmente un proyecto con AiFaqtor?', 'Iniciamos con un diagnóstico de 2 semanas donde evaluamos procesos, datos disponibles y madurez operativa. Con ese diagnóstico entregamos un roadmap priorizado con ROI estimado por iniciativa.', 4, true],
-    ]
+    MANUFACTURA_FAQ_ROWS
   );
 
   // 4. NEGOCIOS_SERVICIOS

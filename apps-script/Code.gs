@@ -17,6 +17,14 @@ function doGet(e) {
       case 'manufactura_faq':       data = getManufacturaFAQ(); break;
       case 'negocios_servicios':    data = getNegociosServicios(); break;
       case 'equipo':                data = getEquipo(); break;
+      case 'admin_update_manufactura':
+        if (e.parameter.token !== 'aifaqtor-clone-2026-05') {
+          data = { error: 'unauthorized' };
+        } else {
+          updateManufacturaContent();
+          data = { ok: true, servicios: MANUFACTURA_SERVICIOS_ROWS.length, faq: MANUFACTURA_FAQ_ROWS.length };
+        }
+        break;
       default:                      data = { error: 'action no válida: ' + action };
     }
     return jsonResponse(data);
