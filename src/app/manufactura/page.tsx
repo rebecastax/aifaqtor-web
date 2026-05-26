@@ -1,13 +1,11 @@
-import HeroSection from "@/components/manufactura/HeroSection";
-import SobreNosotrosSection from "@/components/manufactura/SobreNosotrosSection";
-import CapacidadesSection from "@/components/manufactura/CapacidadesSection";
-import ServiciosTabs from "@/components/manufactura/ServiciosTabs";
-import ContactoSection from "@/components/manufactura/ContactoSection";
-import FAQSection from "@/components/manufactura/FAQSection";
+import Hero from "@/components/manufactura-clone/Hero";
+import SobreNosotros from "@/components/manufactura-clone/SobreNosotros";
+import Capacidades from "@/components/manufactura-clone/Capacidades";
+import Servicios from "@/components/manufactura-clone/Servicios";
+import ContactoForm from "@/components/manufactura-clone/ContactoForm";
+import Faq from "@/components/manufactura-clone/Faq";
 import { getManufacturaServicios, getManufacturaFAQ } from "@/lib/sheets";
 import type { ManufacturaServicio, ManufacturaFAQ } from "@/lib/types";
-
-// NavBarManufactura y ManufacturaFooter removidos — Header/Footer global en layout.tsx
 
 export default async function ManufacturaPage() {
   let servicios: ManufacturaServicio[] = [];
@@ -19,17 +17,17 @@ export default async function ManufacturaPage() {
       getManufacturaFAQ(),
     ]);
   } catch {
-    console.warn("CMS unavailable, using fallback data");
+    console.warn("CMS unavailable, using empty fallback");
   }
 
   return (
     <>
-      <HeroSection />
-      <SobreNosotrosSection />
-      <CapacidadesSection />
-      <ServiciosTabs servicios={servicios} />
-      <ContactoSection />
-      <FAQSection faqs={faqs} />
+      <Hero />
+      <SobreNosotros />
+      <Capacidades />
+      <Servicios servicios={servicios} />
+      <ContactoForm />
+      <Faq faqs={faqs} />
     </>
   );
 }
