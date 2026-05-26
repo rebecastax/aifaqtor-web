@@ -16,10 +16,43 @@ interface Props {
   faqs: ManufacturaFAQ[];
 }
 
+const FALLBACK_FAQS: ManufacturaFAQ[] = [
+  {
+    pregunta:
+      "¿Necesitamos tener un equipo técnico o de IA para trabajar con AiFaqtor?",
+    respuesta:
+      "No. Nuestro trabajo parte del entendimiento del proceso operativo y del contexto del negocio, no de la madurez tecnológica del cliente. Nos adaptamos al nivel actual de la organización y trabajamos de forma coordinada con operaciones, ingeniería y TI cuando aplica.",
+    orden: 1,
+    activo: true,
+  },
+  {
+    pregunta: "¿AiFaqtor reemplaza sistemas o se integra a los existentes?",
+    respuesta:
+      "Nos integramos a la realidad tecnológica de cada planta. Nuestras soluciones están pensadas para convivir con sistemas existentes (ERP, MES, hojas operativas, herramientas internas), evitando reemplazos innecesarios.",
+    orden: 2,
+    activo: true,
+  },
+  {
+    pregunta: "¿Qué tan seguro es el manejo de nuestra información?",
+    respuesta:
+      "Tratamos los datos operativos con estrictos criterios de confidencialidad y gobierno. Trabajamos bajo acuerdos claros y diseñamos cada solución considerando los lineamientos de seguridad, acceso y cumplimiento definidos por la organización.",
+    orden: 3,
+    activo: true,
+  },
+  {
+    pregunta: "¿Cómo inicia normalmente un proyecto con AiFaqtor?",
+    respuesta:
+      "Iniciamos con un diagnóstico operativo estructurado, que permite entender prioridades, dimensionar impacto y definir una ruta clara antes de cualquier implementación.",
+    orden: 4,
+    activo: true,
+  },
+];
+
 export default function Faq({ faqs }: Props) {
-  const active = (faqs ?? [])
+  const fromCms = (faqs ?? [])
     .filter((f) => f.activo !== false)
     .sort((a, b) => (a.orden ?? 0) - (b.orden ?? 0));
+  const active = fromCms.length > 0 ? fromCms : FALLBACK_FAQS;
 
   const [open, setOpen] = useState(0);
 

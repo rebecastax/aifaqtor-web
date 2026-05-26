@@ -19,28 +19,44 @@ const TABS: {
   key: Grupo;
   label: string;
   descripcion: string;
-  video: string;
+  media: string;
+  fallback: { id: string; nombre: string; descripcion?: string }[];
 }[] = [
   {
     key: "Visibilidad",
     label: "Visibilidad & Datos",
     descripcion:
       "Servicios que transforman datos dispersos en visibilidad clara y compartida de la operación, permitiendo decisiones oportunas y alineadas a objetivos de negocio.",
-    video: "/images/servicios-visibilidad.mp4",
+    media: "/images/aifaqtor/servicios-datos360.gif",
+    fallback: [
+      { id: "v1", nombre: "Control de Paros por Línea (Tiempo Real)" },
+      { id: "v2", nombre: "Control Diario del Cumplimiento del Plan de Producción" },
+      { id: "v3", nombre: "Trazabilidad Operativa para Contención de Calidad" },
+    ],
   },
   {
     key: "Escala",
     label: "Escala Operativa",
     descripcion:
       "Servicios que permiten crecer en volumen o complejidad sin perder control, calidad y gobernabilidad de la operación.",
-    video: "/images/servicios-escala.mp4",
+    media: "/images/aifaqtor/servicios-escala.gif",
+    fallback: [
+      { id: "e1", nombre: "Análisis de Variabilidad Operativa por Turno y Línea" },
+      { id: "e2", nombre: "Rutinas Operativas por Turno (Digitales)" },
+      { id: "e3", nombre: "Control y Registro Digital de Eventos Operativos" },
+    ],
   },
   {
     key: "Rentabilidad",
     label: "Rentabilidad",
     descripcion:
       "Servicios enfocados en identificar, priorizar y reducir pérdidas operativas reales como scrap, paros y capacidad desperdiciada.",
-    video: "/images/servicios-rentabilidad.mp4",
+    media: "/images/aifaqtor/servicios-rentabilidad.gif",
+    fallback: [
+      { id: "r1", nombre: "Reducción de Scrap por Condiciones de Proceso" },
+      { id: "r2", nombre: "Confiabilidad de Activos Críticos" },
+      { id: "r3", nombre: "Liberación de Capacidad Instalada (sin CapEx)" },
+    ],
   },
 ];
 
@@ -60,7 +76,9 @@ export default function Servicios({ servicios }: Props) {
   }, [servicios]);
 
   const current = TABS.find((t) => t.key === active)!;
-  const items = grouped[active] ?? [];
+  const fromCms = grouped[active] ?? [];
+  const items: { id: string | number; nombre: string; descripcion?: string }[] =
+    fromCms.length > 0 ? fromCms : current.fallback;
 
   return (
     <SectionWrapper id="servicios" className="py-20 md:py-28">
@@ -177,20 +195,18 @@ export default function Servicios({ servicios }: Props) {
         <div className="lg:col-span-5">
           <AnimatePresence mode="wait">
             <motion.div
-              key={current.video}
+              key={current.media}
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
               className="rounded-3xl overflow-hidden border border-white/10 bg-white/[0.04]"
             >
-              <video
-                key={current.video}
-                src={current.video}
-                autoPlay
-                loop
-                muted
-                playsInline
+              {/* GIFs animados del sitio original */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={current.media}
+                alt={current.label}
                 className="w-full h-auto block"
               />
             </motion.div>

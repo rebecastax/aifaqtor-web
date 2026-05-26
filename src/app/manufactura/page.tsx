@@ -2,6 +2,7 @@ import Hero from "@/components/manufactura-clone/Hero";
 import SobreNosotros from "@/components/manufactura-clone/SobreNosotros";
 import Capacidades from "@/components/manufactura-clone/Capacidades";
 import Servicios from "@/components/manufactura-clone/Servicios";
+import CasosExito from "@/components/manufactura-clone/CasosExito";
 import ContactoForm from "@/components/manufactura-clone/ContactoForm";
 import Faq from "@/components/manufactura-clone/Faq";
 import { getManufacturaServicios, getManufacturaFAQ } from "@/lib/sheets";
@@ -26,6 +27,7 @@ export default async function ManufacturaPage() {
       <SobreNosotros />
       <Capacidades />
       <Servicios servicios={servicios} />
+      <CasosExito />
       <ContactoForm />
       <Faq faqs={faqs} />
     </>
